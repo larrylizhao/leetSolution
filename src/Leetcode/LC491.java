@@ -7,6 +7,6 @@ import java.util.List;
  */
 public class LC491 {
     public List<List<Integer>> findSubsequences(int[] nums) {
-
+        return null;
     }
 }
