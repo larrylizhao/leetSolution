@@ -46,17 +46,22 @@ public class KeysAndRooms {
         boolean[] vis = new boolean[len];
         //对访问过的房间总数进行计数
         int count = 0;
-        Queue<List<Integer>> next = new LinkedList<>();
-        next.offer(rooms.get(0));
-        vis[0] = true;
+        Queue<Integer> next = new LinkedList<>();
+        //将根节点加入队列
+        next.offer(0);
 
         while(!next.isEmpty()) {
-            count++;
-            List<Integer> nextRooms = next.poll();
+            //对访问节点进行计数并标记已访问
+            int room = next.poll();
+            if(!vis[room]) {
+                count++;
+            }
+            vis[room] = true;
+            //取得当前节点的所有子节点并添加到队列
+            List<Integer> nextRooms = rooms.get(room);
             for (Integer nextRoom : nextRooms) {
                 if(!vis[nextRoom]) {
-                    vis[nextRoom] = true;
-                    next.offer(rooms.get(nextRoom));
+                    next.offer(nextRoom);
                 }
             }
         }
