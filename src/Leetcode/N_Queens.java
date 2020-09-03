@@ -10,6 +10,8 @@ import java.util.Set;
  * N皇后
  * #回溯 #二维数组 #数组下标
  *
+ * 用数据结构来表示棋盘上的点，并对点进行标记
+ *
  * 这道题必须完全记录过去的选择，即皇后放置的位置，才能结合约束条件去做剪枝。
  * 使用三个集合columns、diagonalsX、diagonalsY
  * 分别记录每一列以及两个方向的每条斜线上是否有皇后。
@@ -37,23 +39,23 @@ public class N_Queens {
                 if (columns.contains(i)) {
                     continue;
                 }
-                int diagonal1 = row - i;
-                if (diagonalsX.contains(diagonal1)) {
+                int diagonalX = row - i;
+                if (diagonalsX.contains(diagonalX)) {
                     continue;
                 }
-                int diagonal2 = row + i;
-                if (diagonalsY.contains(diagonal2)) {
+                int diagonalY = row + i;
+                if (diagonalsY.contains(diagonalY)) {
                     continue;
                 }
                 queens[row] = i;
                 columns.add(i);
-                diagonalsX.add(diagonal1);
-                diagonalsY.add(diagonal2);
+                diagonalsX.add(diagonalX);
+                diagonalsY.add(diagonalY);
                 backtrack(solutions, queens, n, row + 1, columns, diagonalsX, diagonalsY);
                 queens[row] = -1;
                 columns.remove(i);
-                diagonalsX.remove(diagonal1);
-                diagonalsY.remove(diagonal2);
+                diagonalsX.remove(diagonalX);
+                diagonalsY.remove(diagonalY);
             }
         }
     }
