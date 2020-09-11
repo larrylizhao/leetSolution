@@ -7,6 +7,7 @@ import java.util.List;
  * 216. 组合总和III
  */
 public class CombinationSum3 {
+    //k个数的总和等于n
     public List<List<Integer>> combinationSum3(int k, int n) {
         List<List<Integer>> res = new ArrayList<>();
         List<Integer> path = new ArrayList<> ();
@@ -27,6 +28,7 @@ public class CombinationSum3 {
 
         for(int i = start; i <= 9; i++) {
             path.add(i);
+            //i+1: 避免出现 135, 153这样的重复结果
             dfs(k, target - i, i + 1, res, path);
             path.remove(path.size() - 1);
         }
