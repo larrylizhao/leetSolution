@@ -10,6 +10,7 @@ import java.util.Queue;
  * #BFS
  */
 public class BinaryTreeLevelOrderTraversal2 {
+    // 倒序输出二叉树的层序值
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
         if(root == null) {
@@ -50,32 +51,3 @@ public class BinaryTreeLevelOrderTraversal2 {
 }
 
 //先把知道的（必须用到的）部分写出来，然后借助已知的步骤去拼凑如何达到结果
-
-class Solution {
-    public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        List<List<Integer>> levelOrder = new LinkedList<>();
-        if (root == null) {
-            return levelOrder;
-        }
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        while (!queue.isEmpty()) {
-            List<Integer> level = new ArrayList<>();
-            //用size记录当前层序节点个数
-            int size = queue.size();
-            for (int i = 0; i < size; i++) {
-                TreeNode node = queue.poll();
-                level.add(node.val);
-                TreeNode left = node.left, right = node.right;
-                if (left != null) {
-                    queue.offer(left);
-                }
-                if (right != null) {
-                    queue.offer(right);
-                }
-            }
-            levelOrder.add(0, level);
-        }
-        return levelOrder;
-    }
-}
