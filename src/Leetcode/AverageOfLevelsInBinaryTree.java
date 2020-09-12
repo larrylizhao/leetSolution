@@ -11,6 +11,7 @@ import java.util.Queue;
  * #层序遍历
  */
 public class AverageOfLevelsInBinaryTree {
+    // 计算二叉树每一层的平均值
     public List<Double> averageOfLevels(TreeNode root) {
         List<Double> res = new ArrayList<>();
         if(root == null) {
@@ -42,4 +43,34 @@ public class AverageOfLevelsInBinaryTree {
 
         return res;
     }
-}
+
+    public List<Double> averageOfLevels_dfs(TreeNode root) {
+        List<Integer> counts = new ArrayList<>();
+        List<Double> sums = new ArrayList<>();
+        dfs(root, 0, counts, sums);
+        List<Double> averages = new ArrayList<>();
+        int size = sums.size();
+        for (int i = 0; i < size; i++) {
+            averages.add(sums.get(i) / counts.get(i));
+        }
+        return averages;
+    }
+
+    public void dfs(TreeNode root, int level, List<Integer> counts, List<Double> sums) {
+        if (root == null) {
+            return;
+        }
+
+        //如果已经遍历过当前层
+        if (level < sums.size()) {
+            sums.set(level, sums.get(level) + root.val);
+            counts.set(level, counts.get(level) + 1);
+        } else {
+            //还未遍历过当前层
+            sums.add(1.0 * root.val);
+            counts.add(1);
+        }
+        dfs(root.left, level + 1, counts, sums);
+        dfs(root.right, level + 1, counts, sums);
+
+    }
