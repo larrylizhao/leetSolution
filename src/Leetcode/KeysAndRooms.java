@@ -6,7 +6,7 @@ import java.util.Queue;
 
 /**
  * 841. 钥匙和房间
- * #深度优先遍历 #广度优先遍历 #图 #临接表 #有向图遍历
+ * #深度优先遍历 #DFS #广度优先遍历 #图 #临接表 #有向图遍历
  */
 public class KeysAndRooms {
     boolean[] vis;
@@ -22,6 +22,7 @@ public class KeysAndRooms {
         return count == len;
     }
 
+    // 递归总是关注当前
     private void dfs(List<List<Integer>> rooms, int index) {
         //标记访问房间
         vis[index] = true;
