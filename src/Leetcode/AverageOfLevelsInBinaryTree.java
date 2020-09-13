@@ -14,14 +14,14 @@ public class AverageOfLevelsInBinaryTree {
     // 计算二叉树每一层的平均值
     public List<Double> averageOfLevels(TreeNode root) {
         List<Double> res = new ArrayList<>();
-        if(root == null) {
+        if (root == null) {
             return res;
         }
 
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         // 广度优先遍历
-        while(!queue.isEmpty()) {
+        while (!queue.isEmpty()) {
             // 每层节点数
             int len = queue.size();
             double sum = 0;
@@ -30,7 +30,7 @@ public class AverageOfLevelsInBinaryTree {
                 TreeNode node = queue.poll();
                 sum += node.val;
                 //将当前层的子节点加入到队列中
-                if(node.left != null) {
+                if (node.left != null) {
                     queue.offer(node.left);
                 }
                 if (node.right != null) {
@@ -56,7 +56,7 @@ public class AverageOfLevelsInBinaryTree {
         return averages;
     }
 
-    public void dfs(TreeNode root, int level, List<Integer> counts, List<Double> sums) {
+    private void dfs(TreeNode root, int level, List<Integer> counts, List<Double> sums) {
         if (root == null) {
             return;
         }
@@ -72,5 +72,5 @@ public class AverageOfLevelsInBinaryTree {
         }
         dfs(root.left, level + 1, counts, sums);
         dfs(root.right, level + 1, counts, sums);
-
     }
+}
