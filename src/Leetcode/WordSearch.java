@@ -24,7 +24,6 @@ public class WordSearch {
         if(board == null || board[0] == null || board[0].length == 0 || word == null || word.length() == 0) {
             return false;
         }
-        boolean exist = false;
         char[] words = word.toCharArray();
         char firstChar = words[0];
         List<int[]> starter = new ArrayList<>();
@@ -42,7 +41,6 @@ public class WordSearch {
             boolean[][] vis = new boolean[row][col];
             int startRow = startPoint[0];
             int startCol = startPoint[1];
-            vis[startRow][startCol] = true;
             if(dfs(board, words, startRow, startCol, 1, vis)) {
                 return true;
             }
@@ -50,7 +48,10 @@ public class WordSearch {
         return false;
     }
 
+    // 我们在写递归函数时，关注当前，当前考察的点，哪些是当前递归该处理的，哪些是丢给递归子调用去做的
+    // 当前递归本身做的事: 判断当前选择的点，本身有没有问题，是不是错的。
     private boolean dfs(char[][] board, char[] words, int row, int col, int position, boolean[][] vis) {
+        vis[row][col] = true;
         if(position == words.length) {
             return true;
         }
@@ -58,19 +59,23 @@ public class WordSearch {
         int rows = board.length;
         int cols = board[0].length;
 
-        boolean exist = false;
+        // 如果四个方向上都无法继续递归, 说明当前点是错的, 直接回溯并返回false
         for ( int i = 0; i < direction.length - 1; i++) {
             int nextRow = row + direction[i];
             int nextCol = col + direction[i+1];
             if(nextRow >= 0 && nextRow < rows && nextCol >=0 && nextCol < cols && !vis[nextRow][nextCol] && board[nextRow][nextCol] == words[position]) {
-                vis[nextRow][nextCol] = true;
-                //四个方向上有一个true，结果就是true
-                exist = exist || dfs(board, words, nextRow, nextCol, position + 1, vis);
-                // IMPORTANT: 当一个方向行不通的时候回退的时候要回溯
-                vis[nextRow][nextCol] = false;
+                // 可以继续递归说名当前节点没问题
+                if(dfs(board, words, nextRow, nextCol, position + 1, vis)) {
+                    //四个方向上有一个true，结果就是true
+                    return true;
+                }
             }
         }
-        return exist;
+
+        // 回溯
+        // 上层递归的for循环可以保证不会再次走入次错误节点
+        vis[row][col] = false;
+        return false;
     }
 
     public static void main(String[] args) {
