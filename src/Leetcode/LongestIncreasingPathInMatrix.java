@@ -3,8 +3,19 @@ package Leetcode;
 /**
  * 329. 矩阵中的最长递增路径
  * https://leetcode-cn.com/problems/longest-increasing-path-in-a-matrix/
+ * #DFS #回溯 #记忆化搜索
  */
-public class LC329 {
+public class LongestIncreasingPathInMatrix {
+    /*
+    输入: nums =
+    [
+      [9,9,4],
+      [6,6,8],
+      [2,1,1]
+    ]
+    输出: 4
+    解释: 最长递增路径为 [1, 2, 6, 9]。
+     */
     public int longestIncreasingPath(int[][] matrix) {
         if (matrix.length == 0 || matrix[0].length == 0) {
             return 0;
@@ -22,8 +33,9 @@ public class LC329 {
         return max;
     }
 
-    //获取{x,y}节点所可以走的最大长度
+    // 获取{x,y}节点所可以走的最大长度
     private int dfs(int[][] matrix, int[][] res, boolean[][] visited, int x, int y) {
+        // 已经探索过该节点，直接返回该节点的最长递增路径长度
         if (res[x][y] != 0) {
             return res[x][y];
         }
@@ -42,8 +54,10 @@ public class LC329 {
                 depth = Math.max(depth, dfs(matrix, res, visited, nx, ny));
             }
         }
-        //当前DFS结束，标记当前节点为未访问。真的需要这个吗
+        // 四个方向上都无法继续DFS，当前节点无效，进行回溯
+        // 上层调用for循环保证不会再来到该节点
         visited[x][y] = false;
+
         //就算每个方向都走不通，长度也是1（即该节点本身）
         //depth赋值为0再加1而不直接赋值为1的好处是可以记录深度
         res[x][y] = depth + 1;
