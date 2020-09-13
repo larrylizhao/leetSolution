@@ -65,6 +65,7 @@ public class WordSearch {
             int nextCol = col + direction[i+1];
             if(nextRow >= 0 && nextRow < rows && nextCol >=0 && nextCol < cols && !vis[nextRow][nextCol] && board[nextRow][nextCol] == words[position]) {
                 // 可以继续递归说名当前节点没问题
+                // 至于剩下的字符，能否找到路径，这件事，交给递归子调用去深搜。
                 if(dfs(board, words, nextRow, nextCol, position + 1, vis)) {
                     //四个方向上有一个true，结果就是true
                     return true;
