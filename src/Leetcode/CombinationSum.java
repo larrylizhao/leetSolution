@@ -6,6 +6,8 @@ import java.util.List;
 /**
  * 39. 组合总和
  * #回溯
+ *
+ * 因为同层for循环中没有重复元素，所以获得解不会有重复
  */
 public class CombinationSum {
     public static void main(String[] args) {
