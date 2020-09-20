@@ -25,7 +25,8 @@ public class Subsets {
      */
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
-        dfs(nums, res, new ArrayList<>(), 0, false);
+        //dfs(nums, res, new ArrayList<>(), 0, false);
+        preOrder(nums, 0, new ArrayList<>(), res);
         return res;
     }
 
@@ -51,6 +52,36 @@ public class Subsets {
         dfs(nums, res, subset, start + 1, false);
         // 递归弹出后，要进行回溯
         subset.remove(subset.size() - 1);
+    }
+
+    // 遍历生成路径
+    public static void preOrder(int[] nums, int i, ArrayList<Integer> subset, List<List<Integer>> res) {
+        if (i >= nums.length) return;
+        // 到了新的状态，记录新的路径，要重新拷贝一份
+        subset = new ArrayList<>(subset);
+
+        // 这里
+        res.add(subset);
+        preOrder(nums, i + 1, subset, res);
+        subset.add(nums[i]);
+        preOrder(nums, i + 1, subset, res);
+    }
+
+    // 位运算
+    public List<List<Integer>> subsets_binary(int[] nums) {
+        List<Integer> subset = new ArrayList<>();
+        List<List<Integer>> ans = new ArrayList<>();
+        int n = nums.length;
+        for (int mask = 0; mask < (1 << n); mask++) {
+            subset.clear();
+            for (int i = 0; i < n; ++i) {
+                if ((mask & (1 << i)) != 0) {
+                    subset.add(nums[i]);
+                }
+            }
+            ans.add(new ArrayList<>(subset));
+        }
+        return ans;
     }
 
     public static void main(String[] args) {
