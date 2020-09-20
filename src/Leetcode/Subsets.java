@@ -40,10 +40,10 @@ public class Subsets {
             return;
         }
 
-        //  左子树
+        //  左子树是不选
         dfs(nums, res, subset, start + 1, res.contains(subset));
 
-        // 右子树
+        // 右子树是选
 
         // 作出选择
         subset.add(nums[start]);
