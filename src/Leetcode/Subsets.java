@@ -42,8 +42,11 @@ public class Subsets {
 
         dfs(nums, res, subset, start + 1, res.contains(subset));
 
+        // 作出选择
         subset.add(nums[start]);
+        // 进行递归
         dfs(nums, res, subset, start + 1, false);
+        // 递归弹出后，要进行回溯
         subset.remove(subset.size() - 1);
     }
 
