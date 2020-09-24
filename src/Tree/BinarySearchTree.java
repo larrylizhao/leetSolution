@@ -1,15 +1,10 @@
 package Tree;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 二叉搜索树:
  */
 public class BinarySearchTree {
-
-    List<String> test = new ArrayList<>();
 
     /**
      * 验证是否是合法的二叉搜索树
