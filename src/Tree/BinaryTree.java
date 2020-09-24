@@ -17,8 +17,8 @@ public class BinaryTree {
      * 从ArrayList中构建二叉树。
      * 一个由数组构建的完全二叉树，若某个节点在数组中的下标为n。
      * 则其左子节点下标为2n+1, 右子节点的下标为2n+2
-     * @param arr
-     * @return
+     * @param arr 需要构建的数组
+     * @return 所构建二叉树的根节点
      */
     private TreeNode getTreeFromList(List<Integer> arr, int n) {
         if(n >= arr.size()) {
@@ -30,6 +30,10 @@ public class BinaryTree {
         return root;
     }
 
+    /**
+     * 将构建的二叉树赋值给跟节点
+     * @param arr 需要构建的数组
+     */
     public void getTreeFromList(List<Integer> arr) {
         root = getTreeFromList(arr, 0);
     }
