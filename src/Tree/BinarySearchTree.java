@@ -34,7 +34,7 @@ public class BinarySearchTree {
             return new TreeNode(val);
         }
         if(val < root.val) {
-            root.left =  insertNode(root.left, val);
+            root.left = insertNode(root.left, val);
         }
         if(val > root.val) {
             root.right = insertNode(root.right, val);
