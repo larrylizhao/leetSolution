@@ -48,19 +48,12 @@ public class SumOfDistancesInTree {
                 child.add(y);
                 graph.put(x, child);
             }
-
-            if(graph.containsKey(y)) {
-                graph.get(y).add(x);
-            } else {
-                List<Integer> child = new ArrayList<>();
-                child.add(x);
-                graph.put(y, child);
-            }
         }
 
         // 计算每个节点的子节点数量并加上自己 #x
-        for (int i = 0; i < N - 1; i++) {
-            nodeSum[i] = graph.get(i).size() + 1;
+        getNodeSum(nodeSum, graph);
+        for (int i = 0; i < N; i++) {
+            nodeSum[i] = graph.get(i) == null ? 1 : graph.get(i).size() + 1;
         }
 
         // 计算ans[0]
@@ -71,6 +64,9 @@ public class SumOfDistancesInTree {
         while(!nodes.isEmpty()){
             int node = nodes.poll();
             List<Integer> children = graph.get(node);
+            if(children == null) {
+                continue;
+            }
             for (Integer child : children) {
                 nodes.offer(child);
             }
@@ -82,8 +78,12 @@ public class SumOfDistancesInTree {
         return ans;
     }
 
+    //
     private void dfs(int node, Map<Integer, List<Integer>> graph, int[] ans, int n, int[] nodeSum) {
         List<Integer> children = graph.get(node);
+        if(children == null) {
+            return;
+        }
         for(Integer child : children) {
             ans[child] = ans[node] + n - 2 * nodeSum[child];
             dfs(child, graph, ans, n, nodeSum);
