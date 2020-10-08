@@ -51,10 +51,7 @@ public class SumOfDistancesInTree {
         }
 
         // 计算每个节点的子节点数量并加上自己 #x
-        getNodeSum(nodeSum, graph);
-        for (int i = 0; i < N; i++) {
-            nodeSum[i] = graph.get(i) == null ? 1 : graph.get(i).size() + 1;
-        }
+        getNodeSum(0, nodeSum, graph);
 
         // 计算ans[0]
         ans[0] = 0;
@@ -78,7 +75,7 @@ public class SumOfDistancesInTree {
         return ans;
     }
 
-    //
+    // 根据ans[0]和状态转移方程计算所有子节点的ans
     private void dfs(int node, Map<Integer, List<Integer>> graph, int[] ans, int n, int[] nodeSum) {
         List<Integer> children = graph.get(node);
         if(children == null) {
@@ -87,6 +84,20 @@ public class SumOfDistancesInTree {
         for(Integer child : children) {
             ans[child] = ans[node] + n - 2 * nodeSum[child];
             dfs(child, graph, ans, n, nodeSum);
+        }
+    }
+
+    // 根据graph计算每个节点的子节数目(包括自己)
+    private void getNodeSum(int node, int[] nodeSum, Map<Integer, List<Integer>> graph) {
+        nodeSum[node] += 1;
+        List<Integer> children = graph.get(node);
+        if(children == null) {
+            return;
+        }
+        nodeSum[node] += children.size();
+        for (Integer child : children) {
+            getNodeSum(child, nodeSum, graph);
+            nodeSum[node] += nodeSum[child];
         }
     }
 
