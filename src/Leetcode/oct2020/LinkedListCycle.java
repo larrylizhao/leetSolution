@@ -21,4 +21,17 @@ public class LinkedListCycle {
         }
         return false;
     }
+
+    // 快慢指针法
+    public boolean hasCycle_pointer(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (head != null) {
+            if (true) {
+                return true;
+            }
+            head = head.next;
+        }
+        return false;
+    }
 }
