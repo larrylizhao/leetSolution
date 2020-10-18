@@ -1,7 +1,7 @@
 package Leetcode.oct2020;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 19. 删除链表的倒数第N个节点
@@ -18,12 +18,36 @@ public class RemoveNthNodeFromEndOfList {
         if(n < 1) {
             return head;
         }
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        ListNode fast = dummy;
+        ListNode slow = dummy;
+        // fast指针先前移n+1步
+        while(n > -1 && fast != null) {
+            fast = fast.next;
+            n--;
+        }
+
+        while(fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        slow.next = slow.next.next;
+        return dummy.next;
+    }
+
+    // 遍历一次，利用HashMap记录下标与节点映射信息
+    public ListNode removeNthFromEnd_map(ListNode head, int n) {
+        if(n < 1) {
+            return head;
+        }
         //  循环遍历保存每一个节点并获得链表长度
-        List<ListNode> nodes = new ArrayList<>();
+        Map<Integer, ListNode> nodes = new HashMap<>();
         ListNode temp = head;
         int listLen = 0;
         while(temp != null) {
-            nodes.add(temp);
+            nodes.put(listLen, temp);
             temp = temp.next;
             listLen++;
         }
