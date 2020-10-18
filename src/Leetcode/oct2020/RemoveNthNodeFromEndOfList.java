@@ -33,7 +33,10 @@ public class RemoveNthNodeFromEndOfList {
             fast = fast.next;
         }
 
+        // slow指向倒数第n节点的前一节点
         slow.next = slow.next.next;
+
+        // dummy.next代表头节点
         return dummy.next;
     }
 
