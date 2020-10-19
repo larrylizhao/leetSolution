@@ -21,12 +21,22 @@ public class BackspaceStringCompare {
         解释：S 会变成 “c”，但 T 仍然是 “b”。
      */
     public boolean backspaceCompare(String S, String T) {
-        char[] s = S.toCharArray();
-        char[] t = T.toCharArray();
+
+
+    }
+
+    public boolean backspaceCompare_stack(String S, String T) {
+        String sString = buildString(S);
+        String tString = buildString(T);
+        // 比较最终字符串是否相等
+        return sString.equals(tString);
+    }
+
+    // 利用栈，遇到正常字符压栈，遇到#出栈，最后得到输出字符串
+    private String buildString(String str) {
+        char[] s = str.toCharArray();
         Stack<Character> ss = new Stack<>();
-        Stack<Character> ts = new Stack<>();
         StringBuilder sbs = new StringBuilder();
-        StringBuilder sbt = new StringBuilder();
 
         for (char sc : s) {
             if(sc == '#') {
@@ -38,26 +48,10 @@ public class BackspaceStringCompare {
             }
         }
 
-        for (char tc : t) {
-            if(tc == '#') {
-                if(!ts.isEmpty()){
-                    ts.pop();
-                }
-            } else {
-                ts.push(tc);
-            }
-        }
-
         while(!ss.isEmpty()) {
             sbs.append(ss.pop());
         }
 
-        while(!ts.isEmpty()) {
-            sbt.append(ts.pop());
-        }
-
-        String sString = sbs.toString();
-        String tString = sbt.toString();
-        return sString.equals(tString);
+        return sbs.toString();
     }
 }
