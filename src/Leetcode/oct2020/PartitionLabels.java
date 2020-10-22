@@ -1,9 +1,7 @@
 package Leetcode.oct2020;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 763. 划分字母区间
@@ -29,16 +27,19 @@ public class PartitionLabels {
         int start = 0;
 
         // 扫描字符串, 记录每个字符的最远位置
-        Map<Character, Integer> charMaxPosition = new HashMap<>();
+//        Map<Character, Integer> charMaxPosition = new HashMap<>();
+        int[] maxPositionArr = new int[26];
         char[] chars = S.toCharArray();
         for (int i = 0; i < chars.length; i++) {
-            charMaxPosition.put(chars[i], i);
+//            charMaxPosition.put(chars[i], i);
+            maxPositionArr[chars[i] - 'a'] = i;
         }
 
         // 扫描字符串，并维护已扫描字符串的最远位置
         for (int i = 0; i < chars.length; i++) {
             // 扫描过程中发现了新的最远位置则更新maxPosition
-            maxPosition = Math.max(maxPosition, charMaxPosition.get(chars[i]));
+//            maxPosition = Math.max(maxPosition, charMaxPosition.get(chars[i]));
+            maxPosition = Math.max(maxPosition, maxPositionArr[chars[i] - 'a']);
             // 当扫描到这个位置且并没有发现新的最远位置时，可以做切割
             if(maxPosition == i) {
                 res.add(maxPosition - start + 1);
