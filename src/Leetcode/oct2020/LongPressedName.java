@@ -2,7 +2,7 @@ package Leetcode.oct2020;
 
 /**
  * 925. 长按键入
- * #字符串
+ * #字符串 #双指针
  */
 public class LongPressedName {
     /*
