@@ -30,31 +30,7 @@ public class PartitionLabels {
 
         // 扫描字符串, 记录每个字符的最远位置
         Map<Character, Integer> charMaxPosition = new HashMap<>();
-        char[] chars = S.toCharArray();public List<Integer> partitionLabels(String S) {
-            // 记录已扫描字符串中所有字符中的最远位置
-            int maxPosition = -1;
-            List<Integer> res = new ArrayList<>();
-            int start = 0;
-
-            // 扫描字符串, 记录每个字符的最远位置
-            Map<Character, Integer> charMaxPosition = new HashMap<>();
-            char[] chars = S.toCharArray();
-            for (int i = 0; i < chars.length; i++) {
-                charMaxPosition.put(chars[i], i);
-            }
-
-            // 扫描字符串，并维护已扫描字符串的最远位置
-            for (int i = 0; i < chars.length; i++) {
-                // 扫描过程中发现了新的最远位置则更新maxPosition
-                maxPosition = Math.max(maxPosition, charMaxPosition.get(chars[i]));
-                // 当扫描到这个位置且并没有发现新的最远位置时，可以做切割
-                if(maxPosition == i) {
-                    res.add(maxPosition - start + 1);
-                    start = maxPosition + 1;
-                }
-            }
-            return res;
-        }
+        char[] chars = S.toCharArray();
         for (int i = 0; i < chars.length; i++) {
             charMaxPosition.put(chars[i], i);
         }
