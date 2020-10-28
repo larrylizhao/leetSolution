@@ -14,6 +14,7 @@ public class LinkedListCycle {
     public boolean hasCycle(ListNode head) {
         Set<ListNode> seen = new HashSet<>();
         while (head != null) {
+            // 如果set中出现重复节点，表示链表有环
             if (!seen.add(head)) {
                 return true;
             }
@@ -26,12 +27,21 @@ public class LinkedListCycle {
     public boolean hasCycle_pointer(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
-        while (head != null) {
-            if (true) {
+        // 快指针走两步，慢指针走一步
+        // 如果无环，快指针会率先到达终点
+        while(fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+            if(fast == null) {
+                return false;
+            }
+            fast = fast.next;
+            // 快慢指针相遇，说明链表有环
+            if(slow == fast) {
                 return true;
             }
-            head = head.next;
         }
+        // 到达终点，链表无环
         return false;
     }
 }
