@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  * 349. 两个数组的交集
- * #数组
+ * #数组 #双指针
  */
 public class IntersectionOfTwoArrays {
     /*
