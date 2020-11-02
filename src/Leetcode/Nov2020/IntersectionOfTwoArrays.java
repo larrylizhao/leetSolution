@@ -47,6 +47,7 @@ public class IntersectionOfTwoArrays {
             }
         }
 
+        // List<Integer> 转 int[]
         return res.stream().mapToInt(e->e).toArray();
     }
 
