@@ -1,9 +1,7 @@
 package Leetcode.Nov2020;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -23,14 +21,17 @@ public class IntersectionOfTwoArrays {
         int len2 = nums2.length - 1;
         int i = len1;
         int j = len2;
-        List<Integer> res = new ArrayList<>();
+//        List<Integer> res = new ArrayList<>();
+        int[] intersection = new int[len1 + len2 + 2];
+        int index = 0;
 
         // 任何一个数组遍历完就结束遍历，当一个数组遍历完便可以确定不会再有相同元素。
         while(i > -1 && j > -1) {
             // 元素相同且与上一个元素不同则加入res中
             if(nums1[i] == nums2[j]) {
                 if(i == len1 || nums1[i] != nums1[i +1]) {
-                    res.add(nums1[i]);
+//                    res.add(nums1[i]);
+                    intersection[index++] = nums1[i];
                 }
                 i--;
                 j--;
@@ -50,7 +51,9 @@ public class IntersectionOfTwoArrays {
         }
 
         // List<Integer> 转 int[]
-        return res.stream().mapToInt(e->e).toArray();
+//        return res.stream().mapToInt(e->e).toArray();
+        // List to array is slowly
+        return Arrays.copyOfRange(intersection, 0, index);
     }
 
         public int[] intersection_col(int[] nums1, int[] nums2) {
