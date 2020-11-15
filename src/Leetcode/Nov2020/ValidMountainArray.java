@@ -19,7 +19,30 @@ public class ValidMountainArray {
         输入：[0,3,2,1]
         输出：true
      */
+    // 双指针: 一头一尾
     public boolean validMountainArray(int[] A) {
+        int len = A.length;
+        int i = 0;
+        int j = len - 1;
+        if(len < 3) {
+            return false;
+        }
+
+        // 左指针可以爬高就右移
+        while(i < len - 1 && A[i] < A[i + 1]) {
+            i++;
+        }
+        // 右指针可以爬高就左移
+        while(j > 0 && A[j] < A[j - 1]) {
+            j--;
+        }
+
+        // 判断左右山峰是否重合而且
+        return i == j && i != 0 && j != len - 1;
+    }
+
+    // 双指针: 一前一后
+    public boolean validMountainArray_fastslow(int[] A) {
         int i = 0;
         int j = 1;
         int len = A.length;
