@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.stream.IntStream;
 
 /**
  *  1030. 距离顺序排列矩阵单元格
@@ -25,6 +26,8 @@ public class MatrixCellsInDistanceOrder {
         解释：从 (r0, c0) 到其他单元格的距离为：[0,1,1,2]
         [[0,1],[1,1],[0,0],[1,0]] 也会被视作正确答案。
      */
+//=====================================================================================//
+    // BFS解法
     public int[][] allCellsDistOrder(int R, int C, int r0, int c0) {
         boolean[][] added = new boolean[R][C];
         List<int[]> res = new ArrayList<>();
@@ -42,6 +45,7 @@ public class MatrixCellsInDistanceOrder {
             int len = points.size();
             for (int i = 0; i < len; i++) {
                 PointRC p = points.poll();
+                assert p != null;
                 int r = p.r;
                 int c = p.c;
 
@@ -61,6 +65,7 @@ public class MatrixCellsInDistanceOrder {
         return res.toArray(new int[][]{});
     }
 
+//=====================================================================================//
     // R*C的二维数组存储数组下标, 直接对数组下标根据曼哈顿距离排序
     public int[][] allCellsDistOrder_sort(int R, int C, int r0, int c0) {
         // 有R*C个一维数组, 每个一维数组的长度暂未分配
@@ -83,9 +88,62 @@ public class MatrixCellsInDistanceOrder {
         return ret;
     }
 
+//=====================================================================================//
+    // Stream解法
+    public int[][] allCellsDistOrder_stream(int R, int C, int r0, int c0) {
+        return IntStream.range(0, R).boxed()
+                .flatMap(r -> IntStream.range(0, C).mapToObj(c -> new int[]{r, c}))
+                .sorted(Comparator.comparingInt(pos -> dist(pos[0], pos[1], r0, c0)))
+                .toArray(int[][]::new);
+    }
+
+    private int dist(int r, int c, int r0, int c0) {
+        return Math.abs(r - r0) + Math.abs(c - c0);
+    }
+
+//=====================================================================================//
+    //桶排序
+    public int[][] allCellsDistOrder_bucket(int R, int C, int r0, int c0) {
+        // 计算桶的最大长度
+        int maxDist = Math.max(r0, R - 1 - r0) + Math.max(c0, C - 1 - c0);
+
+        // 桶是一个list, 桶的下标是距离, 桶的元素是list. 该list包含所有距离为i的坐标
+        List<List<int[]>> bucket = new ArrayList<>();
+//        Map<Integer, List<int[]>> buckets = new HashMap<>();
+        for (int i = 0; i <= maxDist; i++) {
+            // 共有maxDist+1个list, 每个list中存储距离为 i 的坐标
+            bucket.add(new ArrayList<>());
+        }
+
+        // 计算距离，并根据距离将坐标存储在桶中
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                int d = dist(i, j, r0, c0);
+//                List<int[]> list = buckets.getOrDefault(d, new ArrayList<>());
+//                list.add(new int[]{i, j});
+//                buckets.put(d, list);
+                bucket.get(d).add(new int[]{i, j});
+            }
+        }
+        // 存储下标点的数组
+        int[][] ret = new int[R * C][];
+        int index = 0;
+        // 遍历bucket, 根据距离取得结果数组
+        for (int i = 0; i <= maxDist; i++) {
+            for (int[] it : bucket.get(i)) {
+                ret[index++] = it;
+            }
+        }
+        return ret;
+    }
+
+//=====================================================================================//
+    // main
     public static void main(String[] args) {
         MatrixCellsInDistanceOrder matrixCellsInDistanceOrder = new MatrixCellsInDistanceOrder();
-        matrixCellsInDistanceOrder.allCellsDistOrder_sort(3,4, 0, 1);
+        int[][] res = matrixCellsInDistanceOrder.allCellsDistOrder_sort(3,4, 0, 1);
+        int[][] res_bucket = matrixCellsInDistanceOrder.allCellsDistOrder_bucket(3,4,0,1);
+        System.out.println(res);
     }
 }
 
