@@ -13,6 +13,8 @@ public class MoveZeroes {
         输入: [0,1,0,3,12]
         输出: [1,3,12,0,0]
      */
+
+    // 用队列储存所有非0元素并补齐0，最后输出到数组
     public void moveZeroes(int[] nums) {
         Queue<Integer> nonZeros = new LinkedList<>();
         int i = 0;
@@ -33,6 +35,33 @@ public class MoveZeroes {
             if(!nonZeros.isEmpty()) {
                 nums[i1] = nonZeros.poll();
             }
+        }
+    }
+
+//========================================================================================//
+    // 双指针 - 慢指针维护0与非0边界，快指针向后查找非0元素并与边界上的0进行交换
+    public void moveZeroes_pointer(int[] nums) {
+        int slow = 0;
+        int len = nums.length;
+        // 找到第一个非0元素
+        while(slow < len) {
+            if(nums[slow] == 0) {
+                break;
+            }
+            slow++;
+        }
+        // slow是0与非0的边界
+        int fast = slow + 1;
+        while(fast < len) {
+            // fast遇到非0, 则与边界处的0进行交换
+            if(nums[fast] != 0) {
+                nums[slow] = nums[fast];
+                nums[fast] = 0;
+                // 更新边界坐标
+                slow++;
+            }
+            // 如果是0, fast直接向前移动
+            fast++;
         }
     }
 }
