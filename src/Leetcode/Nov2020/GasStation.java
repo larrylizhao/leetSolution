@@ -1,5 +1,7 @@
 package Leetcode.Nov2020;
 
+import java.util.Arrays;
+
 /**
  *  134. 加油站
  *  #贪心
@@ -40,6 +42,47 @@ public class GasStation {
         因此，无论怎样，你都不可能绕环路行驶一周。
      */
     public int canCompleteCircuit(int[] gas, int[] cost) {
-        return 0;
+        int gasSum = Arrays.stream(gas).sum();
+        int costSum = Arrays.stream(cost).sum();
+        // 总油量小于总路程则一定无法成行
+        if(costSum > gasSum) {
+            return -1;
+        }
+        int len = gas.length;
+        int i = 0;
+        while(i < len) {
+            // 消耗大于加油的站点无法作为起始站
+            if(gas[i] < cost[i]) {
+                i++;
+                continue;
+            }
+            int cnt = 0;
+            int station = i;
+            int oil = 0;
+            while(cnt < len) {
+                //可以走到下一站就cnt++, 检查最终是否可以走完
+                oil += gas[station] - cost[station];
+                if(oil >= 0) {
+                    cnt++;
+                    station = ++station % len;
+                } else {
+                    break;
+                }
+            }
+            // 可以走完说明i是可行的
+            if(cnt == len) {
+                return i;
+            }
+            // 否则继续尝试
+            i++;
+        }
+
+        // 尝试完所有站点都不可能
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        GasStation gasStation = new GasStation();
+        gasStation.canCompleteCircuit(new int[]{1,2,3,4,5}, new int[]{3,4,5,1,2});
     }
 }
