@@ -83,6 +83,25 @@ public class MoveZeroes {
         }
     }
 
+    public void moveZeroes_quicksort_refine(int[] nums)  {
+        int length;
+        if (nums == null || (length = nums.length) == 0) {
+            return;
+        }
+        // i 和 j 只有两种情况: i == j 或者 i > j
+        int j = 0;
+        for (int i = 0; i < length; i++) {
+            if (nums[i] != 0) {
+                // i == j时不用进行交换
+                if (i > j) {// #1
+                    nums[j] = nums[i];
+                    nums[i] = 0;
+                }
+                j++;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         MoveZeroes moveZeroes = new MoveZeroes();
         moveZeroes.moveZeroes_quicksort(new int[]{1,2,0,3,4,0,0,5,0});
