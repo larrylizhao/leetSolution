@@ -64,4 +64,27 @@ public class MoveZeroes {
             fast++;
         }
     }
+
+
+    public void moveZeroes_quicksort(int[] nums) {
+        if(nums==null) {
+            return;
+        }
+        // 初始状态i和j重叠
+        int j = 0;
+        for(int i=0;i<nums.length;i++) {
+            // 当遇到0时, j指向0,i++继续向后寻找非0元素并与j指向的0交换
+            // nums[j++]交换后j右移 可以与i再次重叠也可以指向下一个非0元素
+            if(nums[i]!=0) {
+                int tmp = nums[i];
+                nums[i] = nums[j];
+                nums[j++] = tmp;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        MoveZeroes moveZeroes = new MoveZeroes();
+        moveZeroes.moveZeroes_quicksort(new int[]{1,2,0,3,4,0,0,5,0});
+    }
 }
