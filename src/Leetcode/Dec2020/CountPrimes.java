@@ -14,6 +14,32 @@ public class CountPrimes {
         输出：0
      */
     public int countPrimes(int n) {
+        int count = 0;
+        if( n == 0 || n == 1) {
+            return 0;
+        }
 
+        int i = n;
+        while(i > 1) {
+            if(isPrime(i)) {
+                count++;
+            }
+            i--;
+        }
+        return count;
+    }
+
+    private boolean isPrime(int n) {
+        if(n == 2) {
+            return false;
+        }
+        int i = n - 1;
+        while(i > 1) {
+            if(n % i == 0) {
+                return false;
+            }
+            i--;
+        }
+        return true;
     }
 }
