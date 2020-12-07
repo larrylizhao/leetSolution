@@ -57,6 +57,7 @@ public class ScoreAfterFlippingMatrix {
             count_1 = Math.max(count_1, row - count_1);
             count += count_1 * (1 << (col - j - 1));
         }
+        // 2的1次方
         System.out.println(1 << 1);
         return count;
     }
