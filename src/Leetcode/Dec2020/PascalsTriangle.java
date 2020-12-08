@@ -1,6 +1,8 @@
 package Leetcode.Dec2020;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,7 +30,30 @@ public class PascalsTriangle {
 
      */
     public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> res = new ArrayList<>();
+        if(numRows < 1) {
+            return res;
+        }
+        res.add(Collections.singletonList(1));
+        if(numRows == 1) {
+            return res;
+        }
+        res.add(Arrays.asList(1,1));
+        if(numRows == 2) {
+            return res;
+        }
+        for(int i = 2; i < numRows; i++) {
+            List<Integer> row = new ArrayList<>();
+            row.add(1);
+            List<Integer> lastRow = res.get(i - 1);
+            for(int j = 0; j < lastRow.size() - 1; j++) {
+                int elm = lastRow.get(j) + lastRow.get(j + 1);
+                row.add(elm);
+            }
+            row.add(1);
+            res.add(row);
+        }
 
-        return new ArrayList<>();
+        return res;
     }
 }
