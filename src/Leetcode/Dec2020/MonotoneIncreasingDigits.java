@@ -26,10 +26,10 @@ public class MonotoneIncreasingDigits {
             if(arr[i] < arr[i - 1]) {
                 arr[i] = '9';
                 // char 转为 int , int 转为 char
-                arr[i - 1] = Character.forDigit(arr[i - 1] - '0', 10);
+                arr[i - 1] = Character.forDigit(arr[i - 1] - '0' - 1, 10);
             }
         }
         // char array 转为 String, String 转为 int
         return Integer.parseInt(new String(arr));
-    }m
+    }
 }
