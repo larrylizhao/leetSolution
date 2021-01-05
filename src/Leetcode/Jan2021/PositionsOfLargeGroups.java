@@ -26,6 +26,10 @@ public class PositionsOfLargeGroups {
         for( int slow = 0, fast = 1; fast < len; fast++) {
             if(chars[slow] == chars[fast]) {
                 wordLen++;
+                //处理最后一个子串，否则遍历完整个字符串后会跳出循环
+                if(fast == len - 1 && wordLen > 2) {
+                    res.add(new ArrayList<>(Arrays.asList(slow, fast)));
+                }
                 continue;
             }
 
@@ -36,5 +40,11 @@ public class PositionsOfLargeGroups {
             wordLen = 1;
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        PositionsOfLargeGroups positionsOfLargeGroups = new PositionsOfLargeGroups();
+        String test = "aaa";
+        positionsOfLargeGroups.largeGroupPositions(test);
     }
 }
