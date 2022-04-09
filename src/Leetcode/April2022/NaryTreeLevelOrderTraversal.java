@@ -22,16 +22,19 @@ public class NaryTreeLevelOrderTraversal {
         }
         // 根节点入队
         queue.offer(root);
+        // 以null为每一层的分割点
         queue.offer(null);
         while(!queue.isEmpty()) {
             NaryNode node = queue.poll();
             List<Integer> level = new ArrayList<>();
+            // 遇到null之前说明当前节点全部为同一层
             while(node != null) {
                 level.add(node.val);
                 List<NaryNode> children = node.children;
                 queue.addAll(children);
                 node = queue.poll();
             }
+            // 避免无限循环
             if (level.size() > 0) {
                 queue.offer(null);
                 result.add(level);
