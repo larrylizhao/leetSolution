@@ -35,6 +35,7 @@ public class ShortestDistanceToACharacter {
             } else if(i == rightC) {
                 res[i] = 0;
             } else {
+                // 更新左右c, 并计算距离
                 leftC = rightC;
                 rightC = cIndex == cIdx.size() - 1 ? Integer.MAX_VALUE : cIdx.get(++cIndex);
                 res[i] = Math.min(i - leftC, rightC - i);
