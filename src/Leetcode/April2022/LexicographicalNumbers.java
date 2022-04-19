@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *  386. 字典序排数
- *  #
+ *  #DFS #中序遍历
  */
 public class LexicographicalNumbers {
     /*
@@ -23,7 +23,9 @@ public class LexicographicalNumbers {
         int min = Math.min(10, n);
         for (int i = 1; i < min; i++) {
             res.add(i);
-            if(10 * i < n + 1) {
+            // 通过 i * 10 进入 i 的子节点，子节点未超过n
+            if(10 * i <= n) {
+                // 遍历子节点
                 dfs(10 * i, res, n);
             }
         }
@@ -32,10 +34,12 @@ public class LexicographicalNumbers {
 
     private void dfs(int base, List<Integer> res, int limit) {
         for (int i = 0; i < 10; i++) {
-            if(base + i <= limit) {
-                res.add(base + i);
-                if (10 * (base + i) < limit + 1) {
-                    dfs(10 * (base + i), res, limit);
+            int current = base + i;
+            if(current <= limit) {
+                res.add(current);
+                // 通过current * 10进入current的子节点
+                if (10 * current <= limit) {
+                    dfs(10 * current, res, limit);
                 }
             }
         }
