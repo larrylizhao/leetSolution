@@ -8,7 +8,7 @@ import java.util.Queue;
 
 /**
  * 937. 重新排列日志文件
- *
+ * #排序 #优先队列
  */
 public class ReorderDataInLogFiles {
     public String[] reorderLogFiles(String[] logs) {
@@ -44,6 +44,33 @@ public class ReorderDataInLogFiles {
             i++;
         }
         return res;
+    }
+
+    public String[] reorderLogFiles_sort(String[] logs) {
+        List<String> digitalLog = new ArrayList<>();
+        List<String> wordLog = new ArrayList<>();
+        int len = logs.length;
+        List<String> res = new ArrayList<>();
+        for (String log : logs) {
+            if(isDigital(log)) {
+                digitalLog.add(log);
+            } else {
+                wordLog.add(log);
+            }
+        }
+        wordLog.sort((a,b) -> {
+            String[] breakA = breakString(a);
+            String[] breakB = breakString(b);
+            if(breakA[1].equals(breakB[1])) {
+                return breakA[0].compareTo(breakB[0]);
+            }
+            return breakA[1].compareTo(breakB[1]);
+        });
+        res.addAll(wordLog);
+        res.addAll(digitalLog);
+
+        // return res.stream().toArray(String[] ::new);
+        return res.toArray(new String[0]);
     }
 
     //判断是否是数字log
