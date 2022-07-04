@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *  1200. 最小绝对差
+ *  #数组
+ */
 public class MinimumAbsoluteDifference {
     public List<List<Integer>> minimumAbsDifference(int[] arr) {
         Arrays.sort(arr);
