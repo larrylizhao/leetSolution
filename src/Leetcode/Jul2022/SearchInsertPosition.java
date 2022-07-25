@@ -4,6 +4,9 @@ package Leetcode.Jul2022;
  *  35. 搜索插入位置
  */
 public class SearchInsertPosition {
+    /*
+        >= value的lower bound
+     */
     public int searchInsert(int[] nums, int target) {
         int left = 0;
         int right = nums.length;        // 搜索的范围为[0, nums.length)
