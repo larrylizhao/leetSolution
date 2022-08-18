@@ -47,7 +47,7 @@ public class FurnitureOrder implements FurnitureOrderInterface {
         for(int count : order.values()) {
             total += count;
         }
-        return 0;
+        return total;
     }
 
     public static void main(String[] args) {
